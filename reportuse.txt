@@ -1,0 +1,52 @@
+desc student;
++--------+--------------+------+-----+---------+-------+
+| Field  | Type         | Null | Key | Default | Extra |
++--------+--------------+------+-----+---------+-------+
+| rollNo | varchar(15)  | NO   | PRI | NULL    |       |
+| course | varchar(20)  | YES  |     | NULL    |       |
+| branch | varchar(20)  | YES  |     | NULL    |       |
+| name   | varchar(100) | YES  |     | NULL    |       |
+| gender | varchar(10)  | YES  |     | NULL    |       |
+| dob    | varchar(100) | YES  |     | NULL    |       |
++--------+--------------+------+-----+---------+-------+
+
+
+
+desc result;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| rollNo      | varchar(15) | NO   | PRI | NULL    |       |
+| biology     | varchar(10) | YES  |     | NULL    |       |
+| chemistry   | varchar(10) | YES  |     | NULL    |       |
+| mathematics | varchar(10) | YES  |     | NULL    |       |
+| bet         | varchar(10) | YES  |     | NULL    |       |
+| psuc        | varchar(10) | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+
+
+
+ desc admin;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| admin_id   | decimal(7,0) | NO   | PRI | NULL    |       |
+| admin_name | varchar(20)  | YES  |     | NULL    |       |
+| password   | varchar(20)  | YES  |     | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+
+
+
+
+desc attendance;
++-------------------+-------------+------+-----+---------+-------+
+| Field             | Type        | Null | Key | Default | Extra |
++-------------------+-------------+------+-----+---------+-------+
+| attendid          | varchar(15) | NO   | PRI | NULL    |       |
+| attendance_status | varchar(40) | YES  |     | NULL    |       |
+| biology           | varchar(10) | YES  |     | NULL    |       |
+| chemistry         | varchar(10) | YES  |     | NULL    |       |
+| mathematics       | varchar(10) | YES  |     | NULL    |       |
+| bet               | varchar(10) | YES  |     | NULL    |       |
+| psuc              | varchar(10) | YES  |     | NULL    |       |
++-------------------+-------------+------+-----+---------+-------+

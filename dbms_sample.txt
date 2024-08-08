@@ -1,0 +1,137 @@
+create table student(
+     rollNo varchar(15) primary key,
+     course varchar(20) ,
+     branch varchar(20),
+     name varchar(100),
+     gender varchar(10),
+     dob varchar(100));
+
+create table result(
+     rollNo varchar(15) primary key,
+     biology varchar(10) ,
+     chemistry varchar(10),
+     mathematics varchar(10),
+     bet varchar(10),
+     psuc varchar(10));
+
+
+ String rollno = jTextField1.getText();
+        String bio = jTextField2.getText();
+        String chem = jTextField3.getText();
+        String mat = jTextField4.getText();
+        String bet = jTextField5.getText();
+        String psuc = jTextField6.getText();
+
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/srm","root","mysql");
+            Statement st = con.createStatement();
+           ResultSet rs = st.executeQuery("select * from student where rollno='"+rollno+"'");
+           if(rs.next()){
+               st.executeUpdate("INSERT INTO result(rollno,biology,chemistry,mathematics, bet,psuc) VALUES ('"+rollno+"', '"+bio+"', '"+chem+"', '"+mat+"', '"+bet+"', '"+psuc+"')");
+               JOptionPane.showMessageDialog(null, "Successfully updated!!");
+               setVisible(false);
+               new InsertnewResult().setVisible(true);
+           }else{
+               JOptionPane.showMessageDialog(null, "Roll Number does not exits in our database!");
+           }
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Connection error");
+            setVisible(false);
+            new InsertnewResult().setVisible(true);
+        }
+
+
+ID VARCHAR(5),
+  4      course_id VARCHAR(8),
+  5      sec_id VARCHAR(8),
+  6      semester VARCHAR(6),
+  7      year NUMERIC(4,0),
+  8      grade VARCHAR(2),
+  9      PRIMARY KEY (ID, course_id, sec_id, semester, year));
+create table student(
+     rollNo varchar(15) primary key,
+     course varchar(20) ,
+     branch varchar(20),
+     name varchar(100),
+     gender varchar(10),
+     dob varchar(100));
+
+
+rollNo varchar(15) primary key,
+     biology varchar(10) ,
+     chemistry varchar(10),
+     mathematics varchar(10),
+     bet varchar(10),
+     psuc varchar(10)
+
+
+
+
+
+
+
+ CREATE TABLE log_change_Takes_results(
+      date DATE,
+     rollNo varchar(15),
+     biology varchar(10) ,
+     chemistry varchar(10),
+     mathematics varchar(10),
+     bet varchar(10),
+     psuc varchar(10));
+
+
+CREATE or REPLACE trigger log_change_Takes_s
+    BEFORE INSERT OR UPDATE
+    OR DELETE on student
+    FOR EACH ROW
+    begin
+        case
+            WHEN INSERTING THEN
+            insert into log_change_Takes_students values (current_date,:NEW.rollno,:NEW.course,:NEW.branch,:NEW.name,:NEW.gender,:NEW.dob);
+            WHEN DELETING THEN
+           insert into log_change_Takes values (current_date,:OLD.rollno,:OLD.course,:OLD.branch,:OLD.name,:OLD.gender,:OLD.dob);
+           WHEN UPDATING THEN
+           insert into log_change_Takes values (current_date,:NEW.rollno,:NEW.course,:NEW.branch,:NEW.name,:NEW.gender,:NEW.dob);
+       end case;
+   end;
+   /
+
+
+CREATE TRIGGER log_change_Takes_s
+    BEFORE INSERT ON student
+    FOR EACH ROW
+    BEGIN
+        IF (NEW IS NOT NULL) THEN
+            INSERT INTO log_change_Takes_students (date, rollno, course, branch, name, gender, dob)
+            VALUES (CURRENT_DATE(), NEW.rollno, NEW.course, NEW.branch, NEW.name, NEW.gender, NEW.dob);
+        ELSEIF (OLD IS NOT NULL) THEN
+            INSERT INTO log_change_Takes_students (date, rollno, course, branch, name, gender, dob)
+            VALUES (CURRENT_DATE(), OLD.rollno, OLD.course, OLD.branch, OLD.name, OLD.gender, OLD.dob);
+        ELSE
+            -- do nothing if NEW and OLD are both NULL
+        END IF;
+    END
+
+
+CREATE TRIGGER log_change_Takes_s
+    AFTER INSERT ON student
+    FOR EACH ROW
+            INSERT INTO log_change_Takes_students (date, rollno, course, branch, name, gender, dob)
+            VALUES (CURRENT_DATE(), NEW.rollno, NEW.course, NEW.branch, NEW.name, NEW.gender, NEW.dob);
+       
+
+
+ALTER TABLE log_change_Takes_students
+ADD COLUMN date DATE;
+
+
+CREATE TRIGGER log_change_Takes_r
+    AFTER INSERT ON result
+    FOR EACH ROW
+            INSERT INTO log_change_Takes_results (date, rollno, biology, chemistry, mathematics, bet, psuc)
+            VALUES (CURRENT_DATE(), NEW.rollno, NEW.biology, NEW.chemistry, NEW.mathematics, NEW.bet, NEW.psuc);
+
+
+

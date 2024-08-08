@@ -1,0 +1,56 @@
+sql queries:
+
+
+select password from admin where admin_id='"+username+"';
+
+INSERT INTO student(course,branch,rollNo,name,gender,dob) VALUES ('"+course+"', '"+branch+"', '"+rollno+"', '"+name+"', '"+gender+"', '"+DOB+"');
+
+select * from result;
+
+select * from student where rollno='"+rollno+"';
+
+INSERT INTO result(rollno,biology,chemistry,mathematics, bet,psuc) VALUES ('"+rollno+"', '"+bio+"', '"+chem+"', '"+mat+"', '"+bet+"', '"+psuc+"');
+
+select * from result where rollno='"+rollno+"';
+
+update result set result_status= 'DT' where rollno='"+rollno+"';
+
+update result set result_status= 'SAFE' where rollno='"+rollno+"';
+
+
+
+
+select * from log_change_takes_students;
+
+select * from log_change_takes_results;
+
+
+
+select * from student inner join result where student.rollno='"+rollno+"' and result.rollno='"+rollno+"';
+
+INSERT INTO attendance(attendid,biology,chemistry,mathematics, bet,psuc) VALUES ('"+rollno+"', '"+bio+"', '"+chem+"', '"+mat+"', '"+bet+"', '"+psuc+"');
+
+select * from attendance where attendid='"+rollno+"'
+
+
+sql triggers:
+
+CREATE TRIGGER log_change_Takes_s
+    AFTER INSERT ON student
+    FOR EACH ROW
+            INSERT INTO log_change_Takes_students (date, rollno, course, branch, name, gender, dob)
+            VALUES (CURRENT_DATE(), NEW.rollno, NEW.course, NEW.branch, NEW.name, NEW.gender, NEW.dob);
+
+
+
+CREATE TRIGGER log_change_Takes_r
+    AFTER INSERT ON result
+    FOR EACH ROW
+            INSERT INTO log_change_Takes_results (date, rollno, biology, chemistry, mathematics, bet, psuc)
+            VALUES (CURRENT_DATE(), NEW.rollno, NEW.biology, NEW.chemistry, NEW.mathematics, NEW.bet, NEW.psuc);
+
+
+
+
+
+

@@ -1,0 +1,31 @@
+create table student(
+     rollNo varchar(15) primary key,
+     course varchar(20) ,
+     branch varchar(20),
+     name varchar(100),
+     gender varchar(10),
+     dob varchar(100));
+
+create table result(
+     rollNo varchar(15) primary key,
+     biology varchar(10) ,
+     chemistry varchar(10),
+     mathematics varchar(10),
+     bet varchar(10),
+     psuc varchar(10),
+     foreign key(rollNo) references student(rollNo)) ;
+
+create table admin(
+	admin_id decimal(7,0) primary key,
+	admin_name varchar(20),
+	password varchar(20));
+
+create table attendance(
+	attend_id varchar(15) primary key,
+	attendance_status varchar(40),
+	biology varchar(10) ,
+     chemistry varchar(10),
+     mathematics varchar(10),
+     bet varchar(10),
+     psuc varchar(10),
+     foreign key(attend_id) references student(rollNo)) ;
